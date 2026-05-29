@@ -77,5 +77,6 @@ export const experience: ExperienceItem[] = [
     changed:
       'Reduced manual tracking time by 60% and improved the accuracy and speed of internal bid review.',
     tech: ['Python', 'MySQL', 'SQL'],
+    logo: '/dnc-logo.png',
   },
 ];

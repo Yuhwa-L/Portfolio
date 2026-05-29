@@ -72,6 +72,8 @@ export const projects: Project[] = [
     tech: ['Python', 'MySQL', 'SQL', 'Data Modeling', 'Automation'],
     status: 'shipped',
     year: '2024',
+    logo: '/dnc-logo.png',
+    logoLabel: 'DNC Construction',
   },
   {
     slug: 'rebias',
