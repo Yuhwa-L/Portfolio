@@ -1,53 +1,48 @@
-import { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/lib/useReducedMotion';
+import { isSafari } from '@/lib/isSafari';
 
 /**
- * Page-wide ambient background. Sits behind all content as a fixed layer.
- * Composed of five layered passes:
- *   1. Base off-white wash with two soft radial gradients
- *   2. Three large blurred "aurora" blobs (continuous drift + scroll parallax)
+ * Page-wide ambient background. A fixed layer behind all content, composed of:
+ *   1. Base off-white wash with soft radial gradients
+ *   2. Three large blurred "aurora" blobs (slow idle drift only)
  *   3. Faint dot grid, masked to a center oval so it never competes with text
- *   4. SVG fractal noise for paper-like grain
- *   5. Bottom vignette so content cards stay legible against the bg
+ *   4. SVG fractal-noise grain
+ *   5. Bottom vignette so content cards stay legible
  *
- * All motion is subtle, slow, and respects prefers-reduced-motion.
+ * PERFORMANCE — why this layer is intentionally "dumb":
+ * ----------------------------------------------------------------------------
+ * It is deliberately NOT coupled to scroll or mouse. The 3D constellation
+ * (ConstellationCanvas) is the page's single scroll-reactive background element,
+ * and it is frame-synced for zero lag. Keeping the aurora independent means
+ * scrolling never triggers transform writes or re-rasterization of these large
+ * `filter: blur()` blobs — the precise WebKit cost (bug 89475, "Blur filter
+ * causes issues when scrolling") that used to make scrolling stutter and made
+ * the 3D field appear to lag behind the page.
+ *
+ *   - No `useScroll` / `useTransform`  -> no scroll-time work, on any browser.
+ *   - No mousemove listener / state    -> no React re-renders during pointer move.
+ *   - Safari & reduced-motion: blobs are fully STATIC, so WebKit rasterizes each
+ *     blur once and then just composites it. Other browsers keep a slow,
+ *     continuous idle drift (transform-only, GPU-cheap on Blink/Gecko).
+ *
+ * The noise layer keeps `mix-blend-overlay`, but its backdrop is only the fixed
+ * sibling layers here (not the scrolling page), so it composites once and is not
+ * a per-scroll cost.
  */
 export function AmbientBackground() {
   const reduced = useReducedMotion();
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const { scrollYProgress } = useScroll();
 
-  // Gentle scroll parallax on each blob, different magnitudes.
-  const blob1Y = useTransform(scrollYProgress, [0, 1], [0, -140]);
-  const blob2Y = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  const blob3Y = useTransform(scrollYProgress, [0, 1], [0, -220]);
-
-  useEffect(() => {
-    if (reduced) return;
-    let raf = 0;
-    const onMove = (e: MouseEvent) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        setMouse({
-          x: (e.clientX / window.innerWidth - 0.5) * 24,
-          y: (e.clientY / window.innerHeight - 0.5) * 24,
-        });
-      });
-    };
-    window.addEventListener('mousemove', onMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, [reduced]);
+  // The only motion in this component. Off on Safari (animating a blurred layer
+  // forces re-raster) and under prefers-reduced-motion.
+  const drift = !reduced && !isSafari;
 
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-bg"
     >
-      {/* Layer 1: Base radial wash, a touch more visible to give the page atmosphere. */}
+      {/* Layer 1: Base radial wash. */}
       <div
         className="absolute inset-0"
         style={{
@@ -56,15 +51,10 @@ export function AmbientBackground() {
         }}
       />
 
-      {/* Layer 2: Aurora blobs */}
+      {/* Layer 2: Aurora blobs (idle drift only; static on Safari/reduced-motion). */}
       <motion.div
-        style={{ y: reduced ? 0 : blob1Y, x: reduced ? 0 : mouse.x * 0.6 }}
-        animate={
-          reduced
-            ? undefined
-            : { x: [0, 30, -20, 0], y: [0, -20, 30, 0] }
-        }
-        transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut' }}
+        animate={drift ? { x: [0, 30, -20, 0], y: [0, -20, 30, 0] } : undefined}
+        transition={drift ? { duration: 32, repeat: Infinity, ease: 'easeInOut' } : undefined}
         className="absolute -left-40 -top-56 h-[720px] w-[720px] rounded-full opacity-80 blur-[110px]"
       >
         <div
@@ -77,13 +67,8 @@ export function AmbientBackground() {
       </motion.div>
 
       <motion.div
-        style={{ y: reduced ? 0 : blob2Y, x: reduced ? 0 : -mouse.x * 0.35 }}
-        animate={
-          reduced
-            ? undefined
-            : { x: [0, -40, 20, 0], y: [0, 35, -25, 0] }
-        }
-        transition={{ duration: 36, repeat: Infinity, ease: 'easeInOut' }}
+        animate={drift ? { x: [0, -40, 20, 0], y: [0, 35, -25, 0] } : undefined}
+        transition={drift ? { duration: 36, repeat: Infinity, ease: 'easeInOut' } : undefined}
         className="absolute -right-32 top-[18%] h-[580px] w-[580px] rounded-full opacity-70 blur-[120px]"
       >
         <div
@@ -96,13 +81,8 @@ export function AmbientBackground() {
       </motion.div>
 
       <motion.div
-        style={{ y: reduced ? 0 : blob3Y, x: reduced ? 0 : mouse.x * 0.25 }}
-        animate={
-          reduced
-            ? undefined
-            : { x: [0, 20, -30, 0], y: [0, -15, 25, 0] }
-        }
-        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+        animate={drift ? { x: [0, 20, -30, 0], y: [0, -15, 25, 0] } : undefined}
+        transition={drift ? { duration: 28, repeat: Infinity, ease: 'easeInOut' } : undefined}
         className="absolute bottom-[-160px] left-[18%] h-[520px] w-[520px] rounded-full opacity-55 blur-[110px]"
       >
         <div
@@ -114,7 +94,7 @@ export function AmbientBackground() {
         />
       </motion.div>
 
-      {/* Layer 3: Center-masked dot grid */}
+      {/* Layer 3: Center-masked dot grid. */}
       <div
         className="absolute inset-0 opacity-[0.5]"
         style={{
@@ -128,7 +108,7 @@ export function AmbientBackground() {
         }}
       />
 
-      {/* Layer 4: Grain noise */}
+      {/* Layer 4: Grain noise. */}
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.035] mix-blend-overlay"
         xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +120,7 @@ export function AmbientBackground() {
         <rect width="100%" height="100%" filter="url(#ambient-noise)" />
       </svg>
 
-      {/* Layer 5: Bottom vignette so cards stay readable */}
+      {/* Layer 5: Bottom vignette so cards stay readable. */}
       <div
         className="absolute inset-x-0 bottom-0 h-1/2"
         style={{

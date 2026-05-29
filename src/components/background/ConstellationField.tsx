@@ -21,10 +21,11 @@ export function ConstellationField() {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 -z-[5] overflow-hidden"
       style={{
-        // GPU layer promotion so scroll-driven transforms inside the canvas
-        // never trigger main-thread paint. Especially important for Safari.
+        // Promote to its own compositor layer + isolate layout/paint so the
+        // fixed canvas never participates in page reflow on scroll. No
+        // `will-change` — this wrapper never animates its transform (all motion
+        // lives inside the WebGL canvas), so it would only pin layer memory.
         transform: 'translateZ(0)',
-        willChange: 'transform',
         contain: 'strict',
       }}
     >
