@@ -22,8 +22,18 @@ export function Education() {
           <FadeIn key={item.school} delay={i * 0.08}>
             <article className="group relative h-full overflow-hidden rounded-2xl border border-border-soft bg-white/70 backdrop-blur-md p-7 sm:p-8 transition-all duration-500 ease-apple hover:-translate-y-1 hover:border-border hover:shadow-card-hover">
               <div className="flex items-start justify-between gap-4">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface border border-border-soft text-text-primary">
-                  <GraduationCap className="h-5 w-5" aria-hidden="true" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white border border-border-soft overflow-hidden">
+                  {item.logo ? (
+                    <img
+                      src={item.logo}
+                      alt={`${item.school} logo`}
+                      width={48}
+                      height={48}
+                      className="h-9 w-9 object-contain"
+                    />
+                  ) : (
+                    <GraduationCap className="h-5 w-5 text-text-primary" aria-hidden="true" />
+                  )}
                 </div>
                 {item.status && (
                   <Badge tone={item.status === 'upcoming' ? 'accent' : 'neutral'}>

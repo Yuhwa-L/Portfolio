@@ -117,7 +117,7 @@ function NowStrip() {
         <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
         Now
       </div>
-      <ul className="mt-4 grid gap-3 sm:grid-cols-3 sm:gap-6">
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-6">
         {nowEntries.map((entry) => (
           <li key={entry.title} className="text-[15px]">
             <div className="font-medium text-text-primary">{entry.title}</div>

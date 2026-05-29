@@ -6,6 +6,8 @@ export interface EducationItem {
   /** Display string. For ongoing degrees, the end is "Present". For upcoming, just the term. */
   when: string;
   status?: 'upcoming' | 'current' | 'past';
+  /** Optional school logo served from /public. Falls back to a graduation cap icon. */
+  logo?: string;
 }
 
 export const education: EducationItem[] = [
@@ -16,13 +18,15 @@ export const education: EducationItem[] = [
     location: 'Atlanta, GA',
     when: 'Fall 2026',
     status: 'upcoming',
+    logo: '/gt-logo.png',
   },
   {
     school: 'Santa Monica College',
-    degree: 'Computer Science coursework',
+    degree: 'A.S. Computer Science',
     detail: 'Transfer preparation. GPA 4.0. Data Structures, OOP, Java, C++.',
     location: 'Santa Monica, CA',
     when: 'Aug 2024 to Jun 2026',
     status: 'current',
+    logo: '/smc-logo.png',
   },
 ];

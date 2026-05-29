@@ -56,10 +56,10 @@ export const metrics: Metric[] = [
   {
     value: '200+',
     label: 'Records organized',
-    source: 'SQLite project database',
+    source: 'MySQL project database',
   },
   {
-    value: '50+',
+    value: '100+',
     label: 'Users supported',
     source: 'HackSMC platform and testing',
   },
@@ -76,16 +76,12 @@ export interface NowEntry {
 
 export const nowEntries: NowEntry[] = [
   {
-    title: 'Building Re-Bias',
-    detail: 'AI-assisted bias analysis app, prototyped at HackCC 2025.',
+    title: 'Transferring to Georgia Tech',
+    detail: 'B.S. in Computer Science, incoming Fall 2026.',
   },
   {
     title: 'Leading LIKELION SMC',
-    detail: 'Running workshops and community events as chapter president.',
-  },
-  {
-    title: 'Transferring to Georgia Tech',
-    detail: 'B.S. in Computer Science, incoming Fall 2026.',
+    detail: 'Workshops and student community events.',
   },
 ];
 
@@ -99,16 +95,24 @@ export interface AboutCard {
 
 export const aboutCards: AboutCard[] = [
   {
-    title: 'Full-stack development',
-    detail: 'React, Node.js, REST APIs, and the database underneath. Build the whole thing, not just the surface.',
+    title: 'Practical Systems',
+    detail:
+      'I build tools that make real workflows faster and clearer — not demos, not boilerplate.',
   },
   {
-    title: 'Automation and data tools',
-    detail: 'Python scripts and SQL models that turn manual review into one repeatable workflow.',
+    title: 'Full-Stack Thinking',
+    detail:
+      'Frontend, backend, and the data underneath. I want the whole flow to feel right, not just the surface.',
   },
   {
-    title: 'User-focused product thinking',
-    detail: 'Login screens that work the first time, dashboards a team will actually open, scripts that fail loudly.',
+    title: 'Data + Automation',
+    detail:
+      'Python, SQL, and MySQL turn scattered records and manual review into one repeatable workflow.',
+  },
+  {
+    title: 'Product Sense',
+    detail:
+      'A tool only matters when the person using it can rely on it. That is the bar I build to.',
   },
 ];
 

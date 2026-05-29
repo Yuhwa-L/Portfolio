@@ -10,7 +10,7 @@ export function Contact() {
       id="contact"
       eyebrow="Contact"
       title="Let's build something."
-      intro="The fastest way to reach me is email. I reply within a day or two and read every message."
+      intro="The fastest way to reach me is email. I usually reply within a few hours and read every message."
     >
       <FadeIn>
         <div className="grid gap-3 sm:grid-cols-3">
