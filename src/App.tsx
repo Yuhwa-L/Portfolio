@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { AmbientBackground } from '@/components/background/AmbientBackground';
 import { ConstellationField } from '@/components/background/ConstellationField';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
@@ -40,6 +41,7 @@ function App() {
       </main>
       <Footer />
       <Analytics />
+      <SpeedInsights />
     </>
   );
 }
