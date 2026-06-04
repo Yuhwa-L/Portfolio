@@ -75,7 +75,7 @@ function getScrollProgress(): number {
  * Field config (identical look on every browser)
  * ------------------------------------------------------------------------- */
 
-const POINT_COUNT = 160;
+const POINT_COUNT = 90;
 const MAX_DISTANCE = 2.4;   // only connect points within this distance
 const MAX_NEIGHBORS = 2;    // ...and to at most this many neighbors
 const LINE_OPACITY = 0.28;

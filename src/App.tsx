@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { AmbientBackground } from '@/components/background/AmbientBackground';
 import { ConstellationField } from '@/components/background/ConstellationField';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
@@ -38,6 +39,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <Analytics />
     </>
   );
 }
