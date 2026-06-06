@@ -67,7 +67,6 @@ export function ProjectCardAnimated({
   const hasLive = Boolean(links?.live);
   const hasGithub = Boolean(links?.github);
   const hasCaseStudy = Boolean(links?.caseStudy);
-  const hasAnyLink = hasLive || hasGithub || hasCaseStudy;
 
   const Block = animated ? motion.div : 'div';
   const blockProps = animated ? { variants: innerItem } : {};
@@ -221,16 +220,6 @@ export function ProjectCardAnimated({
                 <FileText className="h-3.5 w-3.5" aria-hidden="true" />
                 Case Study
               </a>
-            )}
-            {!hasAnyLink && (
-              <span
-                aria-disabled="true"
-                title="Internal project. Case study coming soon."
-                className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-full border border-border-soft bg-surface px-3 py-1.5 text-[13px] font-medium text-text-tertiary"
-              >
-                <FileText className="h-3.5 w-3.5" aria-hidden="true" />
-                Case Study soon
-              </span>
             )}
           </motion.div>
         </Block>

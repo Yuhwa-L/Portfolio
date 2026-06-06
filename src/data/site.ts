@@ -9,7 +9,6 @@ export const site = {
   role: 'Full-Stack Developer · Incoming CS @ Georgia Tech · Builder of automation tools and web platforms',
   location: 'Los Angeles, CA',
   email: 'zeusya7015@gmail.com',
-  resumePath: '/Yuhwa_Lee_Resume.pdf',
   availability: 'Open to Software Engineering Internships',
   /** Hero intro paragraph. */
   tagline:
@@ -80,8 +79,8 @@ export const nowEntries: NowEntry[] = [
     detail: 'B.S. in Computer Science, incoming Fall 2026.',
   },
   {
-    title: 'Leading LIKELION SMC',
-    detail: 'Workshops and student community events.',
+    title: 'Leading LIKELION US @ SMC',
+    detail: 'Coding workshops and hands-on project builds.',
   },
 ];
 

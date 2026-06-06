@@ -22,7 +22,7 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     role: 'President',
-    org: 'LIKELION SMC',
+    org: 'LIKELION US @ SMC',
     location: 'Santa Monica, CA',
     start: 'Aug 2025',
     end: 'Present',

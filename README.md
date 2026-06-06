@@ -11,9 +11,8 @@ and minimal, but clearly a developer's site: real projects, real impact, real st
 - **Scroll-reactive 3D constellation** ([react-three-fiber](https://docs.pmnd.rs/react-three-fiber)) — a 90-point cloud whose rotation and drift are driven directly by `window.scrollY` (no lerp, no spring).
 - **Adaptive resolution** that starts crisp (DPR capped at 1.5) and steps down only when `<PerformanceMonitor>` measures a frame-rate drop, so every engine — Safari included — runs as sharp as it can sustain.
 - **Layered CSS ambient background** behind the 3D layer: radial gradients, drifting blurred blobs, dot-grid mask, SVG grain, and a bottom vignette.
-- **Recruiter-first flow**: Hero → Metrics → Projects → About → Experience → Education → Skills → Resume → Contact.
+- **Recruiter-first flow**: Hero → Metrics → Projects → About → Experience → Education → Skills → Contact.
 - **Apple-inspired tokens**, Framer Motion entrances, and `prefers-reduced-motion` respected throughout.
-- **Real PDF resume** served through Vite's static pipeline.
 
 ## Stack
 
@@ -33,11 +32,11 @@ npm run preview    # serve the built bundle
 ## Structure
 
 ```
-public/    Static assets — favicon, robots.txt, photo, resume PDF.
+public/    Static assets — favicon, robots.txt, photo.
 src/
   components/
     background/   AmbientBackground, ConstellationField, ConstellationCanvas (R3F scene).
-    sections/     Hero, Metrics, Projects, About, Experience, Education, Skills, Resume, Contact, Footer, Nav.
+    sections/     Hero, Metrics, Projects, About, Experience, Education, Skills, Contact, Footer, Nav.
     ui/           Reusable bits — Button, Badge, cards, dividers, scroll progress.
   data/           Single source of truth for all copy (site, projects, experience, education, skills).
   lib/            cn(), motion variants, reduced-motion hook.

@@ -11,7 +11,6 @@ import { Education } from '@/components/sections/Education';
 import { Projects } from '@/components/sections/Projects';
 import { Experience } from '@/components/sections/Experience';
 import { Skills } from '@/components/sections/Skills';
-import { Resume } from '@/components/sections/Resume';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/sections/Footer';
 
@@ -36,7 +35,6 @@ function App() {
         <Experience />
         <Education />
         <Skills />
-        <Resume />
         <Contact />
       </main>
       <Footer />

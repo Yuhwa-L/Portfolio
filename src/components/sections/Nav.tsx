@@ -57,16 +57,6 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="hidden md:flex items-center gap-2">
-          <a
-            href={site.resumePath}
-            download
-            className="inline-flex items-center gap-2 rounded-full bg-text-primary px-4 py-1.5 text-[13px] font-medium text-white hover:bg-black transition-colors"
-          >
-            Resume
-          </a>
-        </div>
-
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -98,16 +88,6 @@ export function Nav() {
               </a>
             </li>
           ))}
-          <li className="mt-2 px-3 pb-2">
-            <a
-              href={site.resumePath}
-              download
-              onClick={() => setOpen(false)}
-              className="block w-full text-center rounded-full bg-text-primary px-4 py-3 text-sm font-medium text-white"
-            >
-              Download Resume
-            </a>
-          </li>
         </ul>
       </div>
     </header>

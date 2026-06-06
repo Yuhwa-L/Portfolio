@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, ArrowRight, Download } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { nowEntries, site } from '@/data/site';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -70,15 +70,6 @@ export function Hero() {
               iconRight={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
             >
               View Work
-            </Button>
-            <Button
-              href={site.resumePath}
-              size="lg"
-              variant="secondary"
-              iconLeft={<Download className="h-4 w-4" aria-hidden="true" />}
-              download=""
-            >
-              Download Resume PDF
             </Button>
             <a
               href={site.links.email}
